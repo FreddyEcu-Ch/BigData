@@ -39,11 +39,11 @@ import timeit
 #      Información de las Key y Token disponible en la cuenta de Twitter Developer o la común compartida por el profesor
 ######
 
-APP_KEY = "m04a47Vk2AMRg6XiFRwb1UP6v"  # API Key
-APP_SECRET = "7ySaFR5T3Zhnmx00fbvi3HlXbIUXDpJFm1izgUjl1sb3XSwG2K"  # API Secret Key
-OAUTH_TOKEN = "1518635392655835136-GZKTwdFPes1bokRpQCXcceGoZUzRsx"  # Access Token
+APP_KEY = "QbakjRQjQHsoA0AbmZjerA3CU"  # API Key
+APP_SECRET = "gQb6OCrMmyFdR49ipGFoBNtAezb9hD8Uh1IqoD8eWgsm2Re3PN"  # API Secret Key
+OAUTH_TOKEN = "1587634847471878144-8Ip3RTBEmmbbakI0ko5thrjaiMJPm8"  # Access Token
 OAUTH_TOKEN_SECRET = (
-    "g9wLblzK0t10hTq9hF5rd63Al2LipIcXIefLMsZVyMuPT"  # Access Token Secret
+    "i4zHG4eXCyGhlBOhdOSMjjb8sjCa0UiVin5nVuOtpLJ07"  # Access Token Secret
 )
 
 twitter = Twython(APP_KEY, APP_SECRET, OAUTH_TOKEN, OAUTH_TOKEN_SECRET)
@@ -206,7 +206,7 @@ for s in twitter_accounts[: len(twitter_accounts)]:
     page = 1
 
     # Se pueden descargar 200 tweets por llamada y hasta 3.200 tweets totales, es decir, 16 páginas por cuenta
-    while page < 17:
+    while page < 4:
         print(
             "--- STARTING PAGE",
             page,
