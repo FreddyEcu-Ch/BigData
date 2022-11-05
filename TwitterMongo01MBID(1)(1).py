@@ -320,3 +320,17 @@ for org in db.tweets.aggregate(
     [{"$group": {"_id": "$screen_name", "sum": {"$sum": 1}}}]
 ):
     print(org["_id"], org["sum"])
+
+#%%
+result = tweets.aggregate([ {"$group": {"_id": '$user.screen_name', "followers": {"$max" : "$user.followers_count"}, "following": {"$max": "$user.friends_count"} } }])
+
+print(result)
+
+for i in result:
+	_id = i["_id"]
+	followers = i["followers"]
+	query = {"Twitter_handle" : _id}
+	mod = {"$set" : {"followers" : followers}}
+	accounts.update_one(query, mod)
+
+print("END.......")
