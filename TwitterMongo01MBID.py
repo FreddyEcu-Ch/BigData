@@ -36,7 +36,7 @@ import timeit
 
 
 ###### PARTE 2: Importación de Twython y Twitter app key and access token
-#      Información de las Key y Token disponible en la cuenta de Twitter Developer o la común compartida por el profesor
+#      Información de las Key y Token disponible en la cuenta de Twitter Developer
 ######
 
 APP_KEY = "QbakjRQjQHsoA0AbmZjerA3CU"  # API Key
@@ -321,16 +321,44 @@ for org in db.tweets.aggregate(
 ):
     print(org["_id"], org["sum"])
 
-#%%
-result = tweets.aggregate([ {"$group": {"_id": '$user.screen_name', "followers": {"$max" : "$user.followers_count"}, "following": {"$max": "$user.friends_count"} } }])
+#%% Insertar el campo Followers en la colección de twitters
+result = tweets.aggregate(
+    [
+        {
+            "$group": {
+                "_id": "$user.screen_name",
+                "followers": {"$max": "$user.followers_count"},
+            }
+        }
+    ]
+)
 
 print(result)
 
 for i in result:
-	_id = i["_id"]
-	followers = i["followers"]
-	query = {"Twitter_handle" : _id}
-	mod = {"$set" : {"followers" : followers}}
-	accounts.update_one(query, mod)
+    _id = i["_id"]
+    followers = i["followers"]
+    query = {"Twitter_handle": _id}
+    mod = {"$set": {"followers": followers}}
+    accounts.update_one(query, mod)
 
-print("END.......")
+#%% Insertar el campo Following en la colección de twitters
+result = tweets.aggregate(
+    [
+        {
+            "$group": {
+                "_id": "$user.screen_name",
+                "following": {"$max": "$user.friends_count"},
+            }
+        }
+    ]
+)
+
+print(result)
+
+for i in result:
+    _id = i["_id"]
+    following = i["following"]
+    query = {"Twitter_handle": _id}
+    mod_1 = {"$set": {"following": following}}
+    accounts.update_one(query, mod_1)
